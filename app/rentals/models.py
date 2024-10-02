@@ -20,6 +20,10 @@ class Rental(db.Model):
     payment = db.relationship('Payment', uselist=False, back_populates='rental')
 
     @classmethod
+    def get_all_with_details(cls):
+        return cls.query.options(db.joinedload('property'), db.joinedload('user')).all()
+    
+    @classmethod
     def get_all(cls):
         return cls.query.all()
 

@@ -18,7 +18,7 @@ class PropertyWriteSchema(PropertySchema):
     pass
 
 class PropertyReadSchema(PropertySchema):
-    unit_price = fields.Method("format_price")
+    unit_price = fields.Method("format_price", dump_only=True)
 
     def format_price(self, obj):
         return f"${obj.unit_price:.2f}"

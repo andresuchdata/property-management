@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from service import PaymentService
+from .service import PaymentService
 
 payment_bp = Blueprint('payment', __name__)
 

@@ -1,5 +1,5 @@
-from models import Property
-from schemas import PropertySchema
+from .models import Property
+from .schemas import PropertySchema
 
 class PropertyService:
     @staticmethod

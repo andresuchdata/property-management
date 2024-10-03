@@ -1,17 +1,18 @@
+import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from config import Config
 import pymysql
+from dotenv import load_dotenv
+from app.extensions import db, migrate
+from .commands import db_create, db_reset, db_setup
 
+load_dotenv()
 pymysql.install_as_MySQLdb()
-db = SQLAlchemy()
-migrate = Migrate()
 
-def create_app():
+def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/dbname'
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+    app.config.from_object(config_class)
+    
     db.init_app(app)
     migrate.init_app(app, db)
 
@@ -25,4 +26,8 @@ def create_app():
     app.register_blueprint(rental_bp, url_prefix='/api')
     app.register_blueprint(payment_bp, url_prefix='/api')
 
+    # Add custom commands for DB reset and seeding
+    app.cli.add_command(db_setup)
+    app.cli.add_command(db_create)
+    app.cli.add_command(db_reset)
     return app

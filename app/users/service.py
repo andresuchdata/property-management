@@ -1,3 +1,4 @@
+from .. import db
 from .models import User
 from .schemas import UserSchema
 
@@ -34,3 +35,20 @@ class UserService:
             user.delete()
             return True
         return False
+
+    @staticmethod
+    def get_paginated_users(page=1, per_page=10):
+        paginated_users = User.query.paginate(page=page, per_page=per_page, error_out=False)
+        
+        schema = UserSchema(many=True)
+        return {
+            'items': schema.dump(paginated_users.items),
+            'pagination': {
+                'page': page,
+                'per_page': per_page,
+                'total': paginated_users.total,
+                'pages': paginated_users.pages,
+                'has_next': paginated_users.has_next,
+                'has_prev': paginated_users.has_prev,
+            }
+        }

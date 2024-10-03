@@ -1,12 +1,10 @@
 # User models
 
 import uuid
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.mysql import BOOLEAN
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.security import generate_password_hash, check_password_hash
-
-db = SQLAlchemy()
+from app.extensions import db
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -19,10 +17,10 @@ class User(db.Model):
     phone = db.Column(db.String(20), unique=True, nullable=False)
     is_active = db.Column(BOOLEAN, default=False, nullable=False)
     profile_picture = db.Column(db.String(255))  # Store URL to Alibaba OSS
-    password_hash = db.Column(db.String(128))
+    password_hash = db.Column(db.String(255))
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password, )
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)

@@ -1,10 +1,9 @@
 # Rental models
 
 import uuid
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
+from app.extensions import db
 
-db = SQLAlchemy()
 
 class Rental(db.Model):
     __tablename__ = 'rentals'

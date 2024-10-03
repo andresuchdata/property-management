@@ -1,10 +1,8 @@
 # Property models
 
 import enum
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import SQLAlchemyError
-
-db = SQLAlchemy()
+from app.extensions import db
 
 class UnitType(enum.Enum):
     LAND = 'land'

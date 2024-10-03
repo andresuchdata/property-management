@@ -20,7 +20,7 @@ install: venv
 # Run the project
 run: venv
 	@echo "Running $(PROJECT_NAME)..."
-	. $(VENV)/bin/activate && $(PYTHON) main.py
+	. $(VENV)/bin/activate && $(PYTHON) run.py
 
 # Setup the database
 setup-db: venv

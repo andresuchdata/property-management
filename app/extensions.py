@@ -2,6 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from config import Config
 
+# This is factory pattern for global db object used by domain models, e.g User, Property, etc
+
 db = SQLAlchemy()
 migrate = Migrate()
 

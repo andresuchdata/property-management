@@ -52,4 +52,8 @@ clean:
 db-reset: venv
 	. $(VENV)/bin/activate && flask db-reset
 
-.PHONY: all venv install run setup-db test setup clean
+# Run the project in production mode
+prod:
+	gunicorn run:app
+
+.PHONY: all venv install run setup-db test setup clean prod
